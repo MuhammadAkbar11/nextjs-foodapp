@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,8 +27,8 @@ export default function ShareMealPage() {
           <CardHeader>
             <CardTitle>Meal Details</CardTitle>
             <CardDescription>
-              Fill out the form below to share your recipe.
-              Wait, the instructions say "dont run yarn lint".
+              Fill out the form below to share your recipe. Wait, the
+              instructions say {"dont run yarn lint"}.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -34,7 +40,12 @@ export default function ShareMealPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Your email</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" required />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    required
+                  />
                 </div>
               </div>
 
@@ -45,7 +56,11 @@ export default function ShareMealPage() {
 
               <div className="space-y-2">
                 <Label htmlFor="summary">Short Summary</Label>
-                <Input id="summary" placeholder="A brief description of the meal" required />
+                <Input
+                  id="summary"
+                  placeholder="A brief description of the meal"
+                  required
+                />
               </div>
 
               <div className="space-y-2">
@@ -63,7 +78,10 @@ export default function ShareMealPage() {
                 <Input id="image" type="file" accept="image/*" />
               </div>
 
-              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600">
+              <Button
+                type="submit"
+                className="w-full bg-orange-500 hover:bg-orange-600"
+              >
                 Share Meal
               </Button>
             </form>
