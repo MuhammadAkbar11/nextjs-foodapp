@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
 import Link from "next/link";
+import { getMealBySlug } from "@/data/meals";
+import type { Meal } from "@/types/meal";
 
 export default async function MealDetailsPage({
   params,
@@ -10,32 +12,17 @@ export default async function MealDetailsPage({
 }) {
   const { slug } = await params;
 
-  // Dummy data lookup
-  const mealsData: Record<string, { title: string; creator: string; summary: string; instructions: string }> = {
-    "juicy-cheese-burger": {
-      title: "Juicy Cheese Burger",
-      creator: "John Doe",
-      summary: "A delicious burger with a juicy beef patty and melted cheese.",
-      instructions: "1. Grill the patty.\n2. Melt the cheese on top.\n3. Assemble with buns and sauce.",
-    },
-    "spicy-curry": {
-      title: "Spicy Curry",
-      creator: "Jane Doe",
-      summary: "A rich and spicy curry with chicken and vegetables.",
-      instructions: "1. Fry the spices.\n2. Add chicken and vegetables.\n3. Simmer with coconut milk.",
-    },
-    "fresh-tomato-pasta": {
-      title: "Fresh Tomato Pasta",
-      creator: "Mario Rossi",
-      summary: "Classic Italian pasta with fresh tomatoes and basil.",
-      instructions: "1. Boil the pasta.\n2. Cook tomatoes with garlic and olive oil.\n3. Mix together with basil.",
-    },
-  };
-
-  const meal = mealsData[slug] || {
-    title: slug.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" "),
+  const foundMeal = await getMealBySlug(slug);
+  const meal: Meal = foundMeal ?? {
+    id: slug,
+    slug,
+    title: slug
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" "),
+    description: "A delicious meal created by our community.",
     creator: "Anonymous",
-    summary: "A delicious meal created by our community.",
+    image: "",
     instructions: "Instructions not provided.",
   };
 
@@ -56,7 +43,7 @@ export default async function MealDetailsPage({
           <div className="aspect-square bg-muted rounded-xl flex items-center justify-center text-muted-foreground">
             [ Meal Image Placeholder ]
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Clock className="size-4" />
@@ -79,7 +66,7 @@ export default async function MealDetailsPage({
               <CardTitle>Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">{meal.summary}</p>
+              <p className="text-muted-foreground">{meal.description}</p>
             </CardContent>
           </Card>
 

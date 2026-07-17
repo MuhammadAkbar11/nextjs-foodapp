@@ -1,36 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import MealsGrid from "@/components/meals/meals-grid";
-import type { Meal } from "@/components/meals/meal-item";
+import { getMeals } from "@/data/meals";
 
-export default function MealsPage() {
-  const dummyMeals: Meal[] = [
-    {
-      id: "m1",
-      slug: "juicy-cheese-burger",
-      title: "Juicy Cheese Burger",
-      description:
-        "A delicious burger with a juicy beef patty and melted cheese.",
-      creator: "John Doe",
-      image: "/images/burger.jpg",
-    },
-    {
-      id: "m2",
-      slug: "spicy-curry",
-      title: "Spicy Curry",
-      description: "A rich and spicy curry with chicken and vegetables.",
-      creator: "Jane Doe",
-      image: "/images/curry.jpg",
-    },
-    {
-      id: "m3",
-      slug: "fresh-tomato-pasta",
-      title: "Fresh Tomato Pasta",
-      description: "Classic Italian pasta with fresh tomatoes and basil.",
-      creator: "Mario Rossi",
-      image: "/images/tomato-salad.jpg",
-    },
-  ];
+export default async function MealsPage() {
+  const meals = await getMeals();
 
   return (
     <div className="container mx-auto p-8 space-y-8">
@@ -47,7 +21,7 @@ export default function MealsPage() {
         </Button>
       </header>
 
-      <MealsGrid meals={dummyMeals} />
+      <MealsGrid meals={meals} />
     </div>
   );
 }

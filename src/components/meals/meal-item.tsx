@@ -9,15 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-export interface Meal {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  creator: string;
-  image: string;
-}
+import type { Meal } from "@/types/meal";
 
 interface MealItemProps {
   meal: Meal;
