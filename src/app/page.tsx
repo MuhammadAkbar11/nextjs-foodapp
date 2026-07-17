@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { SlideshowImage } from "@/components/slideshow-image";
 import { ArrowRight, Utensils, Users, Share2 } from "lucide-react";
 
 export default function Home() {
@@ -21,28 +22,24 @@ export default function Home() {
             food lovers today!
           </p>
         </div>
+        <SlideshowImage className="aspect-[16/9] shadow-xs" />
 
-        <div className="flex gap-4 items-center justify-center flex-col sm:flex-row">
+        <div className="flex gap-4 items-center justify-center flex-col sm:flex-row mt-10 ">
           <Button
             asChild
-            size="lg"
-            className="bg-orange-500 hover:bg-orange-600 rounded-full px-8"
+            size="xl"
+            className="bg-orange-500 hover:bg-orange-600 px-8"
           >
             <Link href="/meals">
               Explore Meals <ArrowRight className="ml-2 size-4" />
             </Link>
           </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="lg"
-            className="rounded-full px-8"
-          >
+          <Button asChild variant="outline" size="xl" className="px-8">
             <Link href="/community">Join the Community</Link>
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12 text-left">
           <div className="p-6 bg-card rounded-xl border shadow-xs space-y-3">
             <div className="p-2 bg-orange-100 dark:bg-orange-950 w-fit rounded-lg">
               <Utensils className="size-5 text-orange-500" />
