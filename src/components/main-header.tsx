@@ -3,6 +3,7 @@ import Image from "next/image";
 // The logo lives in the project's /assets folder (outside /public),
 // so we import it here and let next/image bundle/optimize it.
 import logo from "../../assets/logo.png";
+import NavLink from "@/components/nav-link";
 
 export default function MainHeader() {
   return (
@@ -20,20 +21,10 @@ export default function MainHeader() {
       <nav>
         <ul className="flex items-center gap-6 text-sm font-medium">
           <li>
-            <Link
-              href="/meals"
-              className="text-foreground transition-colors hover:text-orange-500"
-            >
-              Browse Meals
-            </Link>
+            <NavLink href="/meals">Browse Meals</NavLink>
           </li>
           <li>
-            <Link
-              href="/community"
-              className="text-foreground transition-colors hover:text-orange-500"
-            >
-              Community
-            </Link>
+            <NavLink href="/community">Community</NavLink>
           </li>
         </ul>
       </nav>

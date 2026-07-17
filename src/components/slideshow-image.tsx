@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
 import burger from "../../assets/burger.jpg";
@@ -12,7 +12,7 @@ import pizza from "../../assets/pizza.jpg";
 import schnitzel from "../../assets/schnitzel.jpg";
 import tomatoSalad from "../../assets/tomato-salad.jpg";
 
-const SLIDE_IMAGES: { src: string; alt: string }[] = [
+const SLIDE_IMAGES: { src: StaticImageData; alt: string }[] = [
   { src: burger, alt: "Juicy cheese burger" },
   { src: curry, alt: "Spicy curry" },
   { src: dumplings, alt: "Dumplings" },
