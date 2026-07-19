@@ -74,8 +74,37 @@ Use the connection string provided by your hosting provider (e.g. Vercel Postgre
 ## Database Architecture
 
 - Connection logic lives in `src/lib/db.ts` and is server-only.
+- The Drizzle ORM client is defined in `src/db/index.ts` and wraps the PostgreSQL pool.
+- Database schemas will live in `src/db/schema/` and be exported through `src/db/schema/index.ts`.
+- Migration output is written to the `drizzle/` directory by `drizzle-kit`.
 - Environment-specific configuration is centralized in `src/lib/env.ts`.
+- Validation is built on Zod and will live in `src/validation/`.
 - No database tables, migrations, ORM schemas, or application queries are added yet. Those will be introduced by later issues.
+
+## Drizzle ORM
+
+FoodApp uses [Drizzle ORM](https://orm.drizzle.team/) with PostgreSQL.
+
+### Available scripts
+
+| Script             | Command                     | Description                          |
+| ------------------ | --------------------------- | ------------------------------------ |
+| `pnpm db:generate` | `drizzle-kit generate`      | Generate SQL migrations from schemas |
+| `pnpm db:migrate`  | `drizzle-kit migrate`       | Run pending migrations               |
+| `pnpm db:push`     | `drizzle-kit push`          | Push schema changes directly         |
+| `pnpm db:studio`   | `drizzle-kit studio`        | Open Drizzle Studio                  |
+
+All scripts use `DATABASE_URL` from `.env.local` via `drizzle.config.ts`.
+
+## Zod Validation
+
+[Zod](https://zod.dev/) is available as the application validation library. Import it from `src/validation`:
+
+```ts
+import { z } from "@/validation";
+```
+
+Domain-specific schemas will be added by later feature issues.
 
 ## Learn More
 
