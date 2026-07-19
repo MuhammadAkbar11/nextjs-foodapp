@@ -1,6 +1,6 @@
-import type { Meal } from "@/types/meal";
+import type { Meal, MealData } from "@/types/meal";
 
-export const meals: Meal[] = [
+export const meals: MealData[] = [
   {
     id: "m1",
     slug: "juicy-cheese-burger",
