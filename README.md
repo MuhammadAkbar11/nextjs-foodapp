@@ -20,6 +20,24 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment Configuration
+
+Configuration values are stored in environment variables, kept separate from application code. Sensitive values must never be committed.
+
+1. Copy the example template to a local env file:
+
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Fill in real values in `.env.local` as needed. `.env.local` is gitignored.
+
+| Variable              | Required | Description                                                |
+| --------------------- | -------- | ---------------------------------------------------------- |
+| `NEXT_PUBLIC_APP_URL` | No       | Base URL of the app (defaults to `http://localhost:3000`). |
+
+Future features will add variables documented (as commented placeholders) in `.env.example`, such as `DATABASE_URL` and `AUTH_SECRET`. Add their real values to `.env.local` when those features land. Access configuration in code through `src/lib/env.ts` rather than reading `process.env` directly.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
