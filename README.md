@@ -207,8 +207,12 @@ import { z } from "@/validation";
 │   ├── features/               # Feature-based modules
 │   │   └── meals/              # Meals feature
 │   │       ├── components/     # Meal UI components
+│   │       │   ├── meal-detail.tsx
+│   │       │   ├── meal-detail-loading.tsx
 │   │       │   ├── meal-item.tsx
-│   │       │   └── meals-grid.tsx
+│   │       │   ├── meals-grid.tsx
+│   │       │   ├── meals-list.tsx
+│   │       │   └── meals-list-loading.tsx
 │   │       ├── queries/        # Meal data access (queries)
 │   │       │   └── meals.ts
 │   │       ├── mutations/      # Future meal mutations
@@ -217,7 +221,9 @@ import { z } from "@/validation";
 │   ├── lib/                    # Utility modules
 │   │   ├── db.ts               # Database connection (server-only)
 │   │   ├── env.ts              # Environment config
-│   │   └── utils.ts            # Utility functions
+│   │   ├── utils.ts            # Utility functions
+│   │   └── utils/              # Additional utilities
+│   │       └── delay-async.ts  # Development-only async delay helper
 │   │
 │   ├── types/                  # Shared type definitions
 │   │   └── meal.ts             # Meal type definitions

@@ -1,43 +1,58 @@
-import type { Meal, MealData } from "@/types/meal";
+/**
+ * Meals feature queries.
+ *
+ * Provides data access functions for retrieving meal records from the
+ * database. All queries run server-side and return types consumed by
+ * the meals feature UI components.
+ */
 
-export const meals: MealData[] = [
-  {
-    id: "m1",
-    slug: "juicy-cheese-burger",
-    title: "Juicy Cheese Burger",
-    description:
-      "A delicious burger with a juicy beef patty and melted cheese.",
-    creator: "John Doe",
-    image: "/images/burger.jpg",
-    instructions:
-      "1. Grill the patty.\n2. Melt the cheese on top.\n3. Assemble with buns and sauce.",
-  },
-  {
-    id: "m2",
-    slug: "spicy-curry",
-    title: "Spicy Curry",
-    description: "A rich and spicy curry with chicken and vegetables.",
-    creator: "Jane Doe",
-    image: "/images/curry.jpg",
-    instructions:
-      "1. Fry the spices.\n2. Add chicken and vegetables.\n3. Simmer with coconut milk.",
-  },
-  {
-    id: "m3",
-    slug: "fresh-tomato-pasta",
-    title: "Fresh Tomato Pasta",
-    description: "Classic Italian pasta with fresh tomatoes and basil.",
-    creator: "Mario Rossi",
-    image: "/images/tomato-salad.jpg",
-    instructions:
-      "1. Boil the pasta.\n2. Cook tomatoes with garlic and olive oil.\n3. Mix together with basil.",
-  },
-];
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { meals } from "@/db/schema/meals";
+import { delayAsync } from "@/lib/utils/delay-async";
+import type { Meal } from "@/types/meal";
 
-export async function getMeals(): Promise<Meal[]> {
-  return meals;
+/**
+ * Transforms a database meal row into the UI-facing Meal type.
+ * Maps database columns to the expected interface fields.
+ */
+function toMeal(row: typeof meals.$inferSelect): Meal {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    description: row.summary,
+    creator: row.creator,
+    creator_email: row.creatorEmail,
+    image: row.image,
+    instructions: row.instructions,
+  };
 }
 
+/**
+ * Fetches all meals from the database for the recipe listing page.
+ * Returns meals ordered by creation date (newest first).
+ */
+export async function getMeals(): Promise<Meal[]> {
+  await delayAsync(2000);
+
+  const rows = await db.select().from(meals).orderBy(meals.createdAt);
+
+  return rows.map(toMeal);
+}
+
+/**
+ * Fetches a single meal by its URL-friendly slug identifier.
+ * Returns null when no matching meal exists.
+ */
 export async function getMealBySlug(slug: string): Promise<Meal | null> {
-  return meals.find((meal) => meal.slug === slug) ?? null;
+  await delayAsync(2000);
+
+  const [row] = await db
+    .select()
+    .from(meals)
+    .where(eq(meals.slug, slug))
+    .limit(1);
+
+  return row ? toMeal(row) : null;
 }

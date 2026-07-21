@@ -1,11 +1,10 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import MealsGrid from "@/features/meals/components/meals-grid";
-import { getMeals } from "@/features/meals/queries/meals";
+import MealsList from "@/features/meals/components/meals-list";
+import MealsListLoading from "@/features/meals/components/meals-list-loading";
 
-export default async function MealsPage() {
-  const meals = await getMeals();
-
+export default function MealsPage() {
   return (
     <div className="container mx-auto p-8 space-y-8">
       <header className="flex flex-col gap-4 items-start">
@@ -21,7 +20,9 @@ export default async function MealsPage() {
         </Button>
       </header>
 
-      <MealsGrid meals={meals} />
+      <Suspense fallback={<MealsListLoading />}>
+        <MealsList />
+      </Suspense>
     </div>
   );
 }
