@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import MealsGrid from "@/components/meals/meals-grid";
-import { getMeals } from "@/data/meals";
+import MealsGrid from "@/features/meals/components/meals-grid";
+import { getMeals } from "@/features/meals/queries/meals";
 
 export default async function MealsPage() {
   const meals = await getMeals();

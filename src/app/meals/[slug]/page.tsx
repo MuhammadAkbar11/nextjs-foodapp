@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
 import Link from "next/link";
-import { getMealBySlug } from "@/data/meals";
+import { getMealBySlug } from "@/features/meals/queries/meals";
 import type { Meal } from "@/types/meal";
 
 export default async function MealDetailsPage({

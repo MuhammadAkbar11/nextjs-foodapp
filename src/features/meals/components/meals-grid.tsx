@@ -1,5 +1,5 @@
 import type { Meal } from "@/types/meal";
-import MealItem from "@/components/meals/meal-item";
+import MealItem from "@/features/meals/components/meal-item";
 
 interface MealsGridProps {
   meals: Meal[];

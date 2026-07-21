@@ -11,7 +11,7 @@ export interface Meal {
 // Storage shape returned by the data layer (e.g. a future database).
 // Currently identical to Meal but kept distinct so the data layer
 // can evolve independently of the UI-facing Meal type.
-export interface MealData extends Meal {}
+export type MealData = Meal;
 
 // Subset of Meal used for list/card previews.
 export interface MealSummary {

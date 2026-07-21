@@ -174,46 +174,56 @@ import { z } from "@/validation";
 ├── drizzle/                    # Generated migration files (version controlled)
 ├── scripts/                    # Utility scripts (DB verification, etc.)
 ├── src/
-│   ├── app/                        # Next.js App Router pages & layouts
-│   ├── layout.tsx              # Root layout (fonts, ThemeProvider, metadata)
-│   ├── page.tsx                # Home page
-│   ├── globals.css             # Global styles + Tailwind + theme variables
-│   ├── community/
-│   │   └── page.tsx            # /community
-│   └── meals/
-│       ├── layout.tsx          # Meals section layout
-│       ├── page.tsx            # /meals (grid listing)
-│       ├── [slug]/
-│       │   └── page.tsx        # /meals/[slug] (detail view)
-│       └── share/
-│           └── page.tsx        # /meals/share (submission form)
-├── components/
-│   ├── main-header.tsx         # Global navigation header
-│   ├── nav-link.tsx            # Active-aware navigation link
-│   ├── slideshow-image.tsx     # Auto-rotating image slideshow
-│   ├── theme-provider.tsx      # next-themes wrapper
-│   ├── meals/                  # Meal domain components
-│   │   ├── meal-item.tsx       # Single meal card
-│   │   └── meals-grid.tsx      # Responsive meal grid
-│   └── ui/                     # shadcn/ui primitives
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── input.tsx
-│       ├── label.tsx
-│       └── textarea.tsx
-├── data/
-│   └── meals.ts                # In-memory meal seed data
-├── db/
-│   ├── index.ts                # Drizzle ORM client
-│   └── schema/                 # Database schemas
-├── lib/
-│   ├── db.ts                   # Database connection (server-only)
-│   ├── env.ts                  # Environment config
-│   └── utils.ts                # Utility functions
-├── types/
-│   └── meal.ts                 # Shared Meal type definitions
-└── validation/
-    └── index.ts                # Zod validation setup
+│   ├── app/                    # Next.js App Router pages & layouts
+│   │   ├── layout.tsx          # Root layout (fonts, ThemeProvider, metadata)
+│   │   ├── page.tsx            # Home page
+│   │   ├── globals.css         # Global styles + Tailwind + theme variables
+│   │   ├── community/
+│   │   │   └── page.tsx        # /community
+│   │   └── meals/
+│   │       ├── layout.tsx      # Meals section layout
+│   │       ├── page.tsx        # /meals (grid listing)
+│   │       ├── [slug]/
+│   │       │   └── page.tsx    # /meals/[slug] (detail view)
+│   │       └── share/
+│   │           └── page.tsx    # /meals/share (submission form)
+│   │
+│   ├── components/             # Shared / global UI components
+│   │   ├── main-header.tsx     # Global navigation header
+│   │   ├── nav-link.tsx        # Active-aware navigation link
+│   │   ├── slideshow-image.tsx # Auto-rotating image slideshow
+│   │   ├── theme-provider.tsx  # next-themes wrapper
+│   │   └── ui/                 # shadcn/ui primitives
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       └── textarea.tsx
+│   │
+│   ├── db/                     # Database layer
+│   │   ├── index.ts            # Drizzle ORM client
+│   │   └── schema/             # Database schemas
+│   │
+│   ├── features/               # Feature-based modules
+│   │   └── meals/              # Meals feature
+│   │       ├── components/     # Meal UI components
+│   │       │   ├── meal-item.tsx
+│   │       │   └── meals-grid.tsx
+│   │       ├── queries/        # Meal data access (queries)
+│   │       │   └── meals.ts
+│   │       ├── mutations/      # Future meal mutations
+│   │       └── validation/     # Future meal validation
+│   │
+│   ├── lib/                    # Utility modules
+│   │   ├── db.ts               # Database connection (server-only)
+│   │   ├── env.ts              # Environment config
+│   │   └── utils.ts            # Utility functions
+│   │
+│   ├── types/                  # Shared type definitions
+│   │   └── meal.ts             # Meal type definitions
+│   │
+│   └── validation/             # Zod validation setup
+│       └── index.ts
 ```
 
 ## Documentation
