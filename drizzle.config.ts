@@ -11,7 +11,6 @@ import { env } from "@/lib/env";
  * Note: this issue only establishes the Drizzle foundation. Actual tables and
  * migrations will be created by later schema issues.
  */
-
 export default defineConfig({
   dialect: "postgresql",
   schema: "./src/db/schema/*",

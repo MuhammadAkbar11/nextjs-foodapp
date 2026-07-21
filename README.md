@@ -8,15 +8,15 @@ FoodApp (NextLevel Food) is a Next.js application built with the App Router. It 
 
 ### Current Features
 
-| Feature              | Route              | Status              |
-| -------------------- | ------------------ | ------------------- |
-| Home / Landing Page  | `/`                | ✅ Implemented       |
-| Meals Grid           | `/meals`           | ✅ Implemented       |
-| Meal Detail          | `/meals/[slug]`    | ✅ Implemented       |
-| Share Meal Form      | `/meals/share`     | 🟡 UI only (no backend) |
-| Community Page       | `/community`       | ✅ Implemented       |
-| Dark Mode            | All routes         | ✅ Implemented       |
-| Global Navigation    | All routes         | ✅ Implemented       |
+| Feature             | Route           | Status                  |
+| ------------------- | --------------- | ----------------------- |
+| Home / Landing Page | `/`             | ✅ Implemented          |
+| Meals Grid          | `/meals`        | ✅ Implemented          |
+| Meal Detail         | `/meals/[slug]` | ✅ Implemented          |
+| Share Meal Form     | `/meals/share`  | 🟡 UI only (no backend) |
+| Community Page      | `/community`    | ✅ Implemented          |
+| Dark Mode           | All routes      | ✅ Implemented          |
+| Global Navigation   | All routes      | ✅ Implemented          |
 
 ### Planned Features
 
@@ -27,19 +27,19 @@ FoodApp (NextLevel Food) is a Next.js application built with the App Router. It 
 
 ## Tech Stack
 
-| Layer             | Technology                                     |
-| ----------------- | ---------------------------------------------- |
-| Framework         | Next.js 15.5 (App Router, Turbopack)           |
-| Language          | TypeScript 5 (strict mode)                     |
-| Styling           | Tailwind CSS v4 + `tw-animate-css`             |
-| Components        | shadcn/ui (radix-nova), Radix UI               |
-| Icons             | lucide-react                                   |
-| Theming           | next-themes (dark / light / system)            |
-| Validation        | Zod                                            |
-| Database (setup)  | PostgreSQL 14+                                 |
-| ORM               | Drizzle ORM                                    |
-| Package Manager   | pnpm 11.13                                     |
-| Linting           | ESLint 9 (next/core-web-vitals)                |
+| Layer            | Technology                           |
+| ---------------- | ------------------------------------ |
+| Framework        | Next.js 15.5 (App Router, Turbopack) |
+| Language         | TypeScript 5 (strict mode)           |
+| Styling          | Tailwind CSS v4 + `tw-animate-css`   |
+| Components       | shadcn/ui (radix-nova), Radix UI     |
+| Icons            | lucide-react                         |
+| Theming          | next-themes (dark / light / system)  |
+| Validation       | Zod                                  |
+| Database (setup) | PostgreSQL 14+                       |
+| ORM              | Drizzle ORM                          |
+| Package Manager  | pnpm 11.13                           |
+| Linting          | ESLint 9 (next/core-web-vitals)      |
 
 ## Getting Started
 
@@ -98,6 +98,7 @@ Access configuration in code through `src/lib/env.ts` rather than reading `proce
 | `pnpm db:migrate`  | `drizzle-kit migrate`  | Run pending migrations               |
 | `pnpm db:push`     | `drizzle-kit push`     | Push schema changes directly         |
 | `pnpm db:studio`   | `drizzle-kit studio`   | Open Drizzle Studio                  |
+| `pnpm db:seed`     | `tsx scripts/seed.ts`  | Seed the database with sample meals  |
 
 All database scripts use `DATABASE_URL` from `.env.local` via `drizzle.config.ts`.
 
@@ -136,6 +137,29 @@ Use the connection string from your hosting provider (e.g., Vercel Postgres, Sup
 
 [Drizzle ORM](https://orm.drizzle.team/) is used with PostgreSQL. The client is defined in `src/db/index.ts`. Database schemas live in `src/db/schema/` and are exported through `src/db/schema/index.ts`. Migration output is written to the `drizzle/` directory.
 
+#### Migration Workflow
+
+Database schema changes follow a repeatable, version-controlled migration process:
+
+1. **Update the schema** — Edit the Drizzle table definitions in `src/db/schema/`.
+2. **Generate a migration** — Run `pnpm db:generate` to produce SQL migration files in `drizzle/`.
+3. **Review the migration** — Inspect the generated `.sql` file and snapshot diff before applying.
+4. **Apply the migration** — Run `pnpm db:migrate` to execute pending migrations against the database.
+
+```
+Schema Changes
+        ↓
+Generate Migration (pnpm db:generate)
+        ↓
+Review Migration Files (drizzle/*.sql)
+        ↓
+Apply Migration (pnpm db:migrate)
+        ↓
+Updated Database
+```
+
+All migration files are committed to version control so that every developer and environment can reproduce the same database structure. Never modify the database manually without a migration.
+
 ### Zod Validation
 
 [Zod](https://zod.dev/) is the application validation library. Import it from `src/validation`:
@@ -147,8 +171,10 @@ import { z } from "@/validation";
 ## Project Structure
 
 ```
-src/
-├── app/                        # Next.js App Router pages & layouts
+├── drizzle/                    # Generated migration files (version controlled)
+├── scripts/                    # Utility scripts (DB verification, etc.)
+├── src/
+│   ├── app/                        # Next.js App Router pages & layouts
 │   ├── layout.tsx              # Root layout (fonts, ThemeProvider, metadata)
 │   ├── page.tsx                # Home page
 │   ├── globals.css             # Global styles + Tailwind + theme variables
@@ -194,12 +220,12 @@ src/
 
 Detailed project documentation lives in the `.agents/` directory:
 
-| Document             | Path                        | Description                           |
-| -------------------- | --------------------------- | ------------------------------------- |
-| Product Requirements | `.agents/PRD.md`            | Product vision, features, and roadmap |
+| Document             | Path                        | Description                                 |
+| -------------------- | --------------------------- | ------------------------------------------- |
+| Product Requirements | `.agents/PRD.md`            | Product vision, features, and roadmap       |
 | Architecture         | `.agents/ARCHITECTURE.md`   | Tech stack, structure, and design decisions |
-| Issue Tracker        | `.agents/ISSUES_LIST.md`    | Tracked issues and progress           |
-| Issue Template       | `.agents/ISSUE_TEMPLATE.md` | Template for creating new issues      |
+| Issue Tracker        | `.agents/ISSUES_LIST.md`    | Tracked issues and progress                 |
+| Issue Template       | `.agents/ISSUE_TEMPLATE.md` | Template for creating new issues            |
 
 ## Contributing
 
@@ -208,4 +234,3 @@ Detailed project documentation lives in the `.agents/` directory:
 3. Follow the project structure conventions: place shared types in `src/types/`, components in `src/components/`, and data accessors in `src/data/`.
 4. Sensitive values (credentials, secrets) must never be committed.
 5. For new features, create an issue using the template in `.agents/ISSUE_TEMPLATE.md`.
-
